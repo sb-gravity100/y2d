@@ -1,0 +1,46 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "y2d",
+  "version": "0.1.0",
+  "identifier": "com.sb.y2d",
+  "build": {
+    "beforeDevCommand": "npm run dev",
+    "devUrl": "http://localhost:1420",
+    "beforeBuildCommand": "npm run build",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "y2d",
+        "width": 1120,
+        "height": 790,
+        "resizable": false,
+        "maximizable": false,
+        "minimizable": false,
+        "closable": true,
+        "decorations": false,
+        "transparent": true,
+        "noRedirectionBitmap": true,
+        "shadow": true,
+        "theme": "Dark",
+        "center": true
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self'; img-src 'self' asset: http://asset.localhost data:; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src ipc: http://ipc.localhost http://localhost:1420 ws://localhost:1421"
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "resources": ["binaries/yt-dlp.exe"],
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ]
+  }
+}
