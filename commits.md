@@ -1,5 +1,8 @@
 # Commit Log
 
+### `0e50cdd` · 2026-10-27 · docs: record desktop distribution validation
+- `PHASES.md`
+
 ### `33667f4` · 2026-10-27 · fix: calculate installer hashes across PowerShell versions
 - `scripts/build-setup.ps1`
 - `scripts/prepare-tools.ps1`
@@ -37,7 +40,7 @@
 
 
 
-### `5a09ffe` � 2026-10-27 � feat: bundle private download tools without console windows
+### `5a09ffe` · 2026-10-27 · feat: bundle private download tools without console windows
 
 - `src-tauri/src/tools.rs`
 
@@ -59,7 +62,7 @@
 
 
 
-### `23c9c94` � 2026-10-27 � docs: plan desktop distribution for 0.1.1
+### `23c9c94` · 2026-10-27 · docs: plan desktop distribution for 0.1.1
 
 - `PLAN.md`
 
