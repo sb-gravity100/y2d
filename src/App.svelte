@@ -61,7 +61,7 @@
 
   const loadingFolder = "Loading download folder…";
 
-  let appVersion = $state("0.1.1");
+  let appVersion = $state("0.1.2");
   let checkingUpdate = $state(false);
   let appUpdate = $state<{ latestVersion: string; updateAvailable: boolean } | null>(null);
   let updateError = $state("");
@@ -256,7 +256,7 @@
       console.info("[y2d] opening CUTV companion repository");
       await openUrl("https://github.com/sb-gravity100/cutv_rust");
     } catch (error) {
-      console.error("[y2d] could not open CUTV release page", error);
+      console.error("[y2d] could not open CUTV repository", error);
       notice = "Could not open CUTV in the browser.";
     }
   }

@@ -56,3 +56,8 @@
 - [x] Keep a small CUTV repository promotion.
 - [x] Validate frontend, Rust, production bundle and custom installer build.
 - Validation: frontend build; app-update SemVer tests; setup destination tests; bundled video/MP3 smoke tests without system tools; silent installation into a path containing spaces; Windows registration and asynchronous uninstall cleanup; GUI executable subsystem and final installer checksum. Native setup appearance and interactive launch remain for desktop QA.
+
+## External link fix - 0.1.2
+
+- [x] Grant explicit opener scope for CUTV and the app-update release page.
+- [ ] Validate the compiled URL scope and rebuild the custom installer.

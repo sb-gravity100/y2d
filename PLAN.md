@@ -32,3 +32,7 @@ Queue/history are currently in memory. Advanced yt-dlp workflows, browser-extens
 - Deliver a standalone custom setup executable: a compact 560×440 rounded dark Tauri window matching the app (Cascadia Code, #0d1216 base, #141b20 surfaces, #84d5bd actions, #e3b17b mark). Left-align installation details with destination selection, busy state, errors, completion and launch. Embed a per-user NSIS payload and run it silently for reliable Windows registration, shortcuts and uninstall support.
 - Keep the existing compact CUTV companion promotion and point it to the requested repository.
 - Build the custom setup through a reproducible script; record bundled tool digests/provenance and include third-party licensing material.
+
+## Fix 0.1.2 - External links
+
+Allow only the CUTV repository and y2d latest-release URLs in the opener capability. The command permission alone does not grant a URL scope. Rebuild the custom setup with the corrected capability.

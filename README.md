@@ -4,7 +4,7 @@ A Windows-first download manager built with Tauri 2, Rust, Svelte 5, TypeScript,
 
 ## Current scope
 
-The `0.1.1` early-access UI uses a fixed, rounded dark window with one Downloads screen, Settings, and a sliding History drawer. It supports video or MP3 downloads, an output folder, progress, cancellation, and revealing completed files. Clipboard URLs can auto-fill the URL field. Completion and failure notifications can be enabled separately.
+The `0.1.2` early-access UI uses a fixed, rounded dark window with one Downloads screen, Settings, and a sliding History drawer. It supports video or MP3 downloads, an output folder, progress, cancellation, and revealing completed files. Clipboard URLs can auto-fill the URL field. Completion and failure notifications can be enabled separately.
 
 The installer includes private yt-dlp, FFmpeg, and ffprobe executables. No command-line installation or system PATH configuration is required. Windows download and tool-version subprocesses run without console windows. Settings can update private tools with SHA-256 verification and check for new stable y2d releases. Application updates open the GitHub release page for manual download; signed automatic installation is a later milestone. A small [CUTV](https://github.com/sb-gravity100/cutv_rust) promotion links to the companion video trimmer.
 
@@ -36,7 +36,7 @@ Build the custom Windows installer (x64):
 npm run build:setup
 ```
 
-The build prepares a pinned, hash-verified FFmpeg archive, builds a per-user NSIS payload, and embeds it in the custom setup. Deliver `artifacts/y2d_0.1.1_x64-setup.exe` and its `.sha256` file. `npm run tauri build` alone produces the underlying standard installer; use `build:setup` for the matching custom interface.
+The build prepares a pinned, hash-verified FFmpeg archive, builds a per-user NSIS payload, and embeds it in the custom setup. Deliver `artifacts/y2d_0.1.2_x64-setup.exe` and its `.sha256` file. `npm run tauri build` alone produces the underlying standard installer; use `build:setup` for the matching custom interface.
 
 The setup and application require Microsoft Edge WebView2 Runtime (normally present on supported Windows installations). The custom setup cannot display without it; install the runtime first on a machine where it is missing. Building requires network access for pinned tool assets and Rust/npm dependencies. FFmpeg resources are generated locally rather than committed to Git.
 

@@ -2,6 +2,10 @@
 
 All notable changes to the desktop application are recorded here.
 
+## [0.1.2] - 2026-10-27
+
+- Fixed CUTV and application-update links being blocked by a missing opener URL scope.
+
 ## [0.1.1] - 2026-10-27
 
 - Added a compact rounded custom Windows installer matching the application, with install location, shortcut choice, installation status, and launch.

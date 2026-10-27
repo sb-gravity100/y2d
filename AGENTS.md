@@ -100,7 +100,7 @@ All planning docs must stay consistent with each other at all times.
 
 ## Purpose and current state
 
-`y2d` is a Windows-first desktop download manager being rebuilt from the existing Node/Electron project at `C:\cli_tools\y2d_dl`. The current workspace is a Tauri 2 desktop scaffold using a Svelte/TypeScript/Vite frontend and Rust backend. Version is `0.1.1`. The app has a fixed, borderless dark window with a Downloads view, separate Settings view, and sliding History drawer; the frontend build and Rust cargo check pass; the desktop window and live downloads have not yet been exercised.
+`y2d` is a Windows-first desktop download manager being rebuilt from the existing Node/Electron project at `C:\cli_tools\y2d_dl`. The current workspace is a Tauri 2 desktop scaffold using a Svelte/TypeScript/Vite frontend and Rust backend. Version is `0.1.2`. The app has a fixed, borderless dark window with a Downloads view, separate Settings view, and sliding History drawer; the frontend build and Rust cargo check pass; the desktop window and live downloads have not yet been exercised.
 
 ## Architecture
 
