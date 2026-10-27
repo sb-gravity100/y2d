@@ -60,4 +60,4 @@
 ## External link fix - 0.1.2
 
 - [x] Grant explicit opener scope for CUTV and the app-update release page.
-- [ ] Validate the compiled URL scope and rebuild the custom installer.
+- [x] Validate the generated URL scope, frontend and production app builds, custom installer build, and installer checksum.
