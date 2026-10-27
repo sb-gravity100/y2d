@@ -1,5 +1,11 @@
 # Commit Log
 
+### `aa13569` · 2026-10-27 · fix: allow companion and update release links
+- `src-tauri/capabilities/default.json`
+- `src/App.svelte`
+- Application/setup version manifests and locks
+- `PLAN.md`, `PHASES.md`, `CHANGELOG.md`, `README.md`, `AGENTS.md`, `RELEASE_NOTES.md`
+
 ### `0e50cdd` · 2026-10-27 · docs: record desktop distribution validation
 - `PHASES.md`
 
