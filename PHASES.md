@@ -54,4 +54,5 @@
 - [x] Bundle FFmpeg/ffprobe and yt-dlp; remove system-tool dependency and suppress console windows.
 - [x] Build the compact matching custom setup with destination selection, progress, errors and launch; retain Windows uninstall support.
 - [x] Keep a small CUTV repository promotion.
-- [ ] Validate frontend, Rust, production bundle and custom installer build.
+- [x] Validate frontend, Rust, production bundle and custom installer build.
+- Validation: frontend build; app-update SemVer tests; setup destination tests; bundled video/MP3 smoke tests without system tools; silent installation into a path containing spaces; Windows registration and asynchronous uninstall cleanup; GUI executable subsystem and final installer checksum. Native setup appearance and interactive launch remain for desktop QA.
