@@ -32,7 +32,10 @@ fn validate_destination(destination: &str) -> Result<PathBuf, String> {
         return Err("Choose a valid local installation folder".into());
     }
     let path = PathBuf::from(destination.trim());
-    if !path.is_absolute() || path.parent().is_none() || destination.starts_with("\\\\") {
+    let local_drive = matches!(path.components().next(), Some(std::path::Component::Prefix(prefix))
+        if matches!(prefix.kind(), std::path::Prefix::Disk(_)));
+    if !path.is_absolute() || path.parent().is_none() || !local_drive
+        || path.components().any(|part| part == std::path::Component::ParentDir) {
         return Err("Choose a local folder below a drive root".into());
     }
     if path.is_file() { return Err("The installation location is a file".into()); }
@@ -124,7 +127,7 @@ mod tests {
     use super::*;
     #[test]
     fn unsafe_installation_destinations_are_rejected() {
-        for path in ["relative", "C:\\", "\\\\server\\share", "C:\\bad\"path", "C:\\bad\npath"] {
+        for path in ["relative", "C:\\", "\\\\server\\share", "  \\\\server\\share", "//server/share", "C:\\folder\\..", "C:\\bad\"path", "C:\\bad\npath"] {
             assert!(validate_destination(path).is_err(), "{path}");
         }
     }
