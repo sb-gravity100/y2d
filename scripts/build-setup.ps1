@@ -1,4 +1,11 @@
 $ErrorActionPreference = 'Stop'
+function Get-Sha256([string]$filePath) {
+    Write-Host '[y2d] calculating file SHA-256'
+    $algorithm = [Security.Cryptography.SHA256]::Create()
+    $stream = [IO.File]::OpenRead($filePath)
+    try { return ([BitConverter]::ToString($algorithm.ComputeHash($stream))).Replace('-', '').ToLowerInvariant() }
+    finally { $stream.Dispose(); $algorithm.Dispose() }
+}
 $root = Split-Path -Parent $PSScriptRoot
 Push-Location $root
 try {
@@ -15,7 +22,7 @@ try {
     New-Item -ItemType Directory -Force -Path artifacts | Out-Null
     $output = Join-Path $root "artifacts/y2d_${version}_x64-setup.exe"
     Copy-Item -LiteralPath (Join-Path $root 'src-setup/target/release/y2d-setup.exe') -Destination $output -Force
-    $hash = (Get-FileHash -LiteralPath $output -Algorithm SHA256).Hash.ToLowerInvariant()
+    $hash = (Get-Sha256 $output)
     Set-Content -LiteralPath "$output.sha256" -Value "$hash  $([IO.Path]::GetFileName($output))" -Encoding ASCII
     Write-Host "[y2d] custom installer ready: $output"
 } finally {

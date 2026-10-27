@@ -1,4 +1,11 @@
 $ErrorActionPreference = 'Stop'
+function Get-Sha256([string]$filePath) {
+    Write-Host '[y2d] calculating file SHA-256'
+    $algorithm = [Security.Cryptography.SHA256]::Create()
+    $stream = [IO.File]::OpenRead($filePath)
+    try { return ([BitConverter]::ToString($algorithm.ComputeHash($stream))).Replace('-', '').ToLowerInvariant() }
+    finally { $stream.Dispose(); $algorithm.Dispose() }
+}
 Write-Host '[y2d] preparing bundled FFmpeg tools'
 $root = Split-Path -Parent $PSScriptRoot
 $destination = Join-Path $root 'src-tauri/binaries'
@@ -19,7 +26,7 @@ try {
     Write-Host '[y2d] downloading FFmpeg archive; SHA-256 verification is required'
     $ProgressPreference = 'SilentlyContinue'
     Invoke-WebRequest -Uri $url -OutFile $archive -UseBasicParsing
-    if ((Get-FileHash -LiteralPath $archive -Algorithm SHA256).Hash.ToLowerInvariant() -ne $expected) {
+    if ((Get-Sha256 $archive) -ne $expected) {
         throw 'FFmpeg archive hash differs from the pinned build. Update the pinned URL/hash together after reviewing upstream.'
     }
     Add-Type -AssemblyName System.IO.Compression.FileSystem
