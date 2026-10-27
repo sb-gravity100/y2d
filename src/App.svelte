@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
+  import { getVersion } from "@tauri-apps/api/app";
   import { invoke } from "@tauri-apps/api/core";
   import { listen } from "@tauri-apps/api/event";
   import { open } from "@tauri-apps/plugin-dialog";
@@ -60,6 +61,33 @@
 
   const loadingFolder = "Loading download folder…";
 
+  let appVersion = $state("0.1.1");
+  let checkingUpdate = $state(false);
+  let appUpdate = $state<{ latestVersion: string; updateAvailable: boolean } | null>(null);
+  let updateError = $state("");
+
+  async function checkAppUpdate() {
+    console.info("[y2d] application update check requested");
+    checkingUpdate = true;
+    updateError = "";
+    appUpdate = null;
+    try {
+      appUpdate = await invoke("check_app_update");
+    } catch (error) {
+      console.error("[y2d] application update check failed", error);
+      updateError = String(error);
+    } finally { checkingUpdate = false; }
+  }
+
+  async function openAppRelease() {
+    console.info("[y2d] opening application release page");
+    try { await openUrl("https://github.com/sb-gravity100/y2d/releases/latest"); }
+    catch (error) {
+      console.error("[y2d] application release page failed", error);
+      updateError = "Could not open the release page: " + String(error);
+    }
+  }
+
   let activeView = $state<View>("downloads");
   let historyOpen = $state(false);
   let mode = $state<Mode>("video");
@@ -91,6 +119,7 @@
     let stopJobEvents: (() => void) | undefined;
     let stopToolEvents: (() => void) | undefined;
 
+    void getVersion().then((version) => appVersion = version).catch((error) => console.error("[y2d] app version unavailable", error));
     void autoPasteClipboard();
     void refreshTools();
 
@@ -224,7 +253,8 @@
 
   async function openCutv() {
     try {
-      await openUrl("https://github.com/sb-gravity100/cutv_rust/releases/latest");
+      console.info("[y2d] opening CUTV companion repository");
+      await openUrl("https://github.com/sb-gravity100/cutv_rust");
     } catch (error) {
       console.error("[y2d] could not open CUTV release page", error);
       notice = "Could not open CUTV in the browser.";
@@ -525,7 +555,19 @@
         </section>
 
         <section class="settings-group about-group">
-          <div class="group-head"><div><h2>About y2d</h2><p>Version 0.1.0 · Windows</p></div><span class="release-tag">Early access</span></div>
+          <div class="group-head">
+            <div><h2>About y2d</h2><p>Version {appVersion} · Windows</p></div>
+            <button class="secondary-button" disabled={checkingUpdate} onclick={checkAppUpdate}>{checkingUpdate ? "Checking..." : "Check for updates"}</button>
+          </div>
+          <div aria-live="polite">
+            {#if appUpdate}
+              <div class="update-result">
+                <span>{appUpdate.updateAvailable ? `Version ${appUpdate.latestVersion} is available.` : "No newer stable release is available."}</span>
+                {#if appUpdate.updateAvailable}<button class="text-button" onclick={openAppRelease}>Download update</button>{/if}
+              </div>
+            {/if}
+            {#if updateError}<p class="inline-error">{updateError}</p>{/if}
+          </div>
         </section>
       {:else}
         <div class="page-head">

@@ -1,5 +1,6 @@
 mod download;
 mod tools;
+mod updates;
 
 use download::{cancel_download, default_download_dir, reveal_file, start_download, DownloadManager};
 use tools::{get_tool_status, install_tool};
@@ -18,7 +19,8 @@ pub fn run() {
             default_download_dir,
             reveal_file,
             get_tool_status,
-            install_tool
+            install_tool,
+            updates::check_app_update
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

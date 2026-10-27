@@ -158,3 +158,5 @@ footer { display: flex; justify-content: space-between; gap: 12px; margin-top: a
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition-duration: .01ms !important; }
 }
+
+.update-result { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 12px; color: var(--teal); font-size: 11px; }

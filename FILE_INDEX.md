@@ -33,6 +33,7 @@ This index maps workspace files to their purpose. Update it when files are added
 - `src-tauri/build.rs` — Tauri build integration.
 - `src-tauri/src/main.rs` — Windows desktop entry point.
 - `src-tauri/src/lib.rs` — Tauri builder, command registration, and managed state.
+- `src-tauri/src/updates.rs` - manual stable application release checks against the pinned GitHub repository.
 - `src-tauri/src/download.rs` — URL validation, yt-dlp process lifecycle, progress events, cancellation, and file reveal.
 - `src-tauri/src/tools.rs` — GitHub release lookup, SHA-256 verification, managed tool installation, and tool status.
 - `src-tauri/tauri.conf.json` — app identity, version, window, CSP, build, and bundle settings.
