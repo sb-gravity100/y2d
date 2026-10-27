@@ -1,5 +1,12 @@
 # Commit Log
 
+### `d56fef1` · 2026-10-27 · docs: describe 0.1.1 desktop distribution
+- `AGENTS.md`
+- `PLAN.md`
+- `PHASES.md`
+- `README.md`
+- `RELEASE_NOTES.md`
+
 ### `698ea5c` · 2026-10-27 · fix: validate local setup destinations
 - `src-setup/src/main.rs`
 - `src-setup/Cargo.lock`
