@@ -48,10 +48,10 @@
 - [ ] Finalize privacy, supported-site limitations, third-party notices, and troubleshooting documentation.
 - **Done when:** a clean Windows install can update without losing user settings or history.
 
-## Desktop distribution — 0.1.1
+## Desktop distribution â€” 0.1.1
 
 - [x] Add manual application update checking with current/latest version and release link.
 - [x] Bundle FFmpeg/ffprobe and yt-dlp; remove system-tool dependency and suppress console windows.
-- [ ] Build the compact matching custom setup with destination selection, progress, errors and launch; retain Windows uninstall support.
+- [x] Build the compact matching custom setup with destination selection, progress, errors and launch; retain Windows uninstall support.
 - [x] Keep a small CUTV repository promotion.
 - [ ] Validate frontend, Rust, production bundle and custom installer build.

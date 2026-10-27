@@ -1,18 +1,9 @@
-# y2d 0.1.0 Early Access
+# y2d 0.1.1
 
-Initial Windows release of y2d, a lightweight downloader built with Tauri 2.
+- Compact custom Windows setup matching the app, with installation location and shortcut options.
+- Bundled FFmpeg, ffprobe and yt-dlp. No separate CLI installation or PATH setup.
+- Hidden Windows downloader and version-probe processes.
+- Manual app update checks in Settings, with a link to the latest stable release.
+- Small CUTV companion promotion.
 
-## Included
-
-- Video and MP3 downloads with progress, cancellation, and file reveal.
-- Clipboard URL detection and a manual Paste button.
-- Optional verified yt-dlp and FFmpeg downloads.
-- Configurable desktop notifications for completed and failed downloads.
-- Missing-tool warnings and links to CUTV, the companion video trimmer.
-
-## Known limitations
-
-- Queue and history are kept in memory and reset when the app closes.
-- Advanced downloader workflows and browser handoff are not included yet.
-- Video and MP3 downloads have not yet been exercised as part of release verification.
-- The installer is unsigned; Windows may display a SmartScreen prompt.
+Download `y2d_0.1.1_x64-setup.exe` and run it. Close y2d before upgrading. Setup requires Microsoft Edge WebView2 Runtime. The installer is unsigned; Windows may display SmartScreen. Queue and history are still in memory. Automatic signed app updates are not enabled.

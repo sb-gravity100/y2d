@@ -4,9 +4,11 @@ A Windows-first download manager built with Tauri 2, Rust, Svelte 5, TypeScript,
 
 ## Current scope
 
-The `0.1.0` early-access UI uses a fixed, rounded dark window with one Downloads screen, a Settings view, and a sliding History drawer. It supports video or MP3 downloads, an output-folder picker, progress, cancellation, and revealing completed files. Clipboard URLs can auto-fill the URL field. Download completion and failure notifications can be enabled separately in Settings. Missing yt-dlp or FFmpeg appears as a warning on Downloads. The installer includes yt-dlp `2026.07.04` as a fallback. Settings can download or update yt-dlp and FFmpeg into y2d's app-data folder. Release asset hashes are checked before installation; the app does not change system PATH. The Downloads screen also links to [CUTV](https://github.com/sb-gravity100/cutv_rust/releases/latest), a companion Windows video trimmer with GIF export.
+The `0.1.1` early-access UI uses a fixed, rounded dark window with one Downloads screen, Settings, and a sliding History drawer. It supports video or MP3 downloads, an output folder, progress, cancellation, and revealing completed files. Clipboard URLs can auto-fill the URL field. Completion and failure notifications can be enabled separately.
 
-FFmpeg is an optional managed download using BtbN's static LGPL Windows build (about 170 MiB). An existing FFmpeg on system PATH is also detected. Queue/history remain in memory. Advanced download flags, browser handoff, installer signing, and app auto-updates are later milestones.
+The installer includes private yt-dlp, FFmpeg, and ffprobe executables. No command-line installation or system PATH configuration is required. Windows download and tool-version subprocesses run without console windows. Settings can update private tools with SHA-256 verification and check for new stable y2d releases. Application updates open the GitHub release page for manual download; signed automatic installation is a later milestone. A small [CUTV](https://github.com/sb-gravity100/cutv_rust) promotion links to the companion video trimmer.
+
+The custom setup is a compact rounded window matching the app. Choose a destination and shortcuts, install, then open y2d. Windows Apps settings provides uninstall support. Close y2d before upgrading. Queue/history remain in memory. Advanced download flags, browser handoff, and signing remain later milestones.
 
 ## Prerequisites
 
@@ -18,6 +20,7 @@ FFmpeg is an optional managed download using BtbN's static LGPL Windows build (a
 
 ```powershell
 npm install
+npm run prepare:tools
 npm run tauri dev
 ```
 
@@ -27,11 +30,15 @@ Frontend checks and build:
 npm run build
 ```
 
-Create a desktop bundle:
+Build the custom Windows installer (x64):
 
 ```powershell
-npm run tauri build
+npm run build:setup
 ```
+
+The build prepares a pinned, hash-verified FFmpeg archive, builds a per-user NSIS payload, and embeds it in the custom setup. Deliver `artifacts/y2d_0.1.1_x64-setup.exe` and its `.sha256` file. `npm run tauri build` alone produces the underlying standard installer; use `build:setup` for the matching custom interface.
+
+The setup and application require Microsoft Edge WebView2 Runtime (normally present on supported Windows installations). The custom setup cannot display without it; install the runtime first on a machine where it is missing. Building requires network access for pinned tool assets and Rust/npm dependencies. FFmpeg resources are generated locally rather than committed to Git.
 
 ## Versioning
 

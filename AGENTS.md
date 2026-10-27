@@ -100,7 +100,7 @@ All planning docs must stay consistent with each other at all times.
 
 ## Purpose and current state
 
-`y2d` is a Windows-first desktop download manager being rebuilt from the existing Node/Electron project at `C:\cli_tools\y2d_dl`. The current workspace is a Tauri 2 desktop scaffold using a Svelte/TypeScript/Vite frontend and Rust backend. Version is `0.1.0`. The app has a fixed, borderless dark window with a Downloads view, separate Settings view, and sliding History drawer; the frontend build and Rust cargo check pass; the desktop window and live downloads have not yet been exercised.
+`y2d` is a Windows-first desktop download manager being rebuilt from the existing Node/Electron project at `C:\cli_tools\y2d_dl`. The current workspace is a Tauri 2 desktop scaffold using a Svelte/TypeScript/Vite frontend and Rust backend. Version is `0.1.1`. The app has a fixed, borderless dark window with a Downloads view, separate Settings view, and sliding History drawer; the frontend build and Rust cargo check pass; the desktop window and live downloads have not yet been exercised.
 
 ## Architecture
 
@@ -108,7 +108,7 @@ All planning docs must stay consistent with each other at all times.
 - `src-tauri/src/lib.rs` configures Tauri and registers commands.
 - `src-tauri/src/download.rs` validates URL and destination input, starts/cancels yt-dlp child processes, emits progress events, and reveals downloaded files.
 - `src-tauri/src/tools.rs` checks GitHub releases, verifies asset SHA-256 digests, and installs versioned yt-dlp/FFmpeg copies under app data.
-- `src-tauri/binaries/yt-dlp.exe` is the bundled yt-dlp executable (version `2026.07.04`). FFmpeg can run from `PATH` or from y2d-managed app-data installs. Tool downloads do not modify system PATH.
+- `src-tauri/binaries/yt-dlp.exe` is the bundled yt-dlp executable (version `2026.07.04`). FFmpeg and ffprobe are bundled from a pinned LGPL build; private app-data updates are also supported. System PATH is not used to locate download tools. Tool downloads do not modify system PATH.
 - Tauri capabilities grant only the dialog folder picker, clipboard text reads, notification controls, and external URL opening needed by the renderer; downloader process execution stays in Rust.
 - Keep `package.json`, `src-tauri/Cargo.toml`, and `src-tauri/tauri.conf.json` versions aligned. Bump the app version using SemVer and record user-facing changes in `CHANGELOG.md`.
 
@@ -117,7 +117,8 @@ All planning docs must stay consistent with each other at all times.
 - `npm install` — install frontend dependencies.
 - `npm run tauri dev` — launch the desktop app in development.
 - `npm run build` — type-check and build the frontend.
-- `npm run tauri build` — create a desktop bundle.
+- `npm run tauri build` — create a standard desktop bundle.
+- `npm run build:setup` — create the compact custom Windows installer and checksum in `artifacts/`.
 
 ## Project documents
 
@@ -127,3 +128,5 @@ All planning docs must stay consistent with each other at all times.
 - `README.md` — setup and runtime requirements.
 
 The existing browser extension and native messaging host remain in `C:\cli_tools\y2d_dl`; browser handoff is a later milestone for this workspace. Keep that integration separately versioned and bump its manifest version whenever extension code or dependent host behavior changes.
+
+The standalone `src-setup/` Tauri crate embeds the silent NSIS payload and supplies the matching rounded setup UI (`src/Installer.svelte`). Settings checks application releases through `src-tauri/src/updates.rs`; app updates currently open the release page for manual download.
