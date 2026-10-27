@@ -1,5 +1,6 @@
 import { mount } from "svelte";
 import App from "./App.svelte";
+import Installer from "./Installer.svelte";
 import "./app.css";
 
 const target = document.getElementById("app");
@@ -8,4 +9,4 @@ if (!target) {
 }
 
 console.info("[y2d] mounting Svelte application");
-mount(App, { target });
+mount(new URLSearchParams(location.search).has("installer") ? Installer : App, { target });

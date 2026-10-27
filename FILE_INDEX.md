@@ -49,3 +49,12 @@ This index maps workspace files to their purpose. Update it when files are added
 - `node_modules/`, `src-tauri/target/`, `dist/` — generated dependencies/build outputs; do not hand-edit.
 - `src-tauri/gen/` — generated Tauri schemas; regenerate through Tauri tooling.
 - App-data `tools/` — per-user managed binaries, installed outside the source tree.
+
+## Custom Windows setup
+
+- `src/Installer.svelte` - compact rounded setup interface, loaded only by the setup window.
+- `src-setup/Cargo.toml`, `Cargo.lock`, `build.rs` - standalone setup crate and Tauri build integration.
+- `src-setup/src/main.rs` - embedded silent NSIS payload, destination validation, install and launch commands.
+- `src-setup/tauri.conf.json`, `capabilities/setup.json` - compact setup window and minimal permissions.
+- `scripts/build-setup.ps1` - production NSIS payload plus standalone custom setup build and SHA-256 output.
+- `artifacts/` - generated custom setup executable and checksum (ignored).

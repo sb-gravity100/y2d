@@ -1,0 +1,19 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "y2d Setup",
+  "version": "0.1.1",
+  "identifier": "com.sb.y2d.setup",
+  "build": { "frontendDist": "../dist" },
+  "app": {
+    "windows": [{
+      "label": "setup", "title": "y2d Setup", "url": "index.html?installer",
+      "width": 560, "height": 440, "resizable": false,
+      "maximizable": false, "decorations": false, "transparent": true,
+      "noRedirectionBitmap": true, "center": true, "theme": "Dark"
+    }],
+    "security": {
+      "csp": "default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src ipc: http://ipc.localhost"
+    }
+  },
+  "bundle": { "active": false, "icon": ["../src-tauri/icons/icon.ico"] }
+}

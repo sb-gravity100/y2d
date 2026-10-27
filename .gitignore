@@ -12,3 +12,5 @@ src-tauri/binaries/ffprobe.exe
 src-tauri/binaries/ffmpeg-notices/
 .setup-payload/
 artifacts/
+src-setup/target/
+src-setup/gen/
