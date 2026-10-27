@@ -1,5 +1,9 @@
 # Commit Log
 
+### `698ea5c` · 2026-10-27 · fix: validate local setup destinations
+- `src-setup/src/main.rs`
+- `src-setup/Cargo.lock`
+
 ### `d68a9d5` · 2026-10-27 · feat: add custom rounded Windows setup
 - `src-setup/`
 - `src/Installer.svelte`
@@ -19,7 +23,6 @@
 - `FILE_INDEX.md`
 - `PHASES.md`
 
-# Commit Log
 
 
 
