@@ -38,6 +38,8 @@ This index maps workspace files to their purpose. Update it when files are added
 - `src-tauri/tauri.conf.json` — app identity, version, window, CSP, build, and bundle settings.
 - `src-tauri/capabilities/default.json` — main window permissions.
 - `src-tauri/binaries/yt-dlp.exe` — bundled yt-dlp fallback executable.
+- `src-tauri/binaries/ffmpeg.exe`, `ffprobe.exe`, `ffmpeg-notices/` - generated private FFmpeg bundle and upstream licenses.
+- `scripts/prepare-tools.ps1` - prepare pinned hash-verified FFmpeg resources for packaging.
 - `src-tauri/icons/y2d.svg` — editable source for generated app/installer icons.
 - `src-tauri/icons/` — generated platform app and installer icons.
 

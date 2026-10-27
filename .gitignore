@@ -6,3 +6,9 @@ src-tauri/gen/schemas/
 .env
 .env.*
 !.env.example
+
+src-tauri/binaries/ffmpeg.exe
+src-tauri/binaries/ffprobe.exe
+src-tauri/binaries/ffmpeg-notices/
+.setup-payload/
+artifacts/

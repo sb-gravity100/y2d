@@ -236,30 +236,19 @@ pub async fn install_tool(app: AppHandle, tool: ToolName) -> Result<ToolsStatus,
 }
 
 pub fn resolve_yt_dlp(app: &AppHandle) -> Result<PathBuf, String> {
-    if let Some(installed) = latest_managed_tool(app, ToolName::YtDlp) {
-        return Ok(installed.path);
-    }
-
-    if let Ok(resources) = app.path().resource_dir() {
-        let bundled = resources.join("binaries").join("yt-dlp.exe");
-        if bundled.is_file() {
-            return Ok(bundled);
-        }
-    }
-
-    let development_copy = PathBuf::from(env!("CARGO_MANIFEST_DIR"))
-        .join("binaries")
-        .join("yt-dlp.exe");
-    if development_copy.is_file() {
-        return Ok(development_copy);
-    }
-
-    Ok(PathBuf::from("yt-dlp.exe"))
+    eprintln!("[y2d] resolving private yt-dlp executable");
+    latest_managed_tool(app, ToolName::YtDlp)
+        .or_else(|| fallback_tool(app, ToolName::YtDlp))
+        .map(|tool| tool.path)
+        .ok_or_else(|| "The bundled yt-dlp executable is missing. Reinstall y2d.".into())
 }
 
-pub fn managed_ffmpeg_dir(app: &AppHandle) -> Option<PathBuf> {
+pub fn resolve_ffmpeg_dir(app: &AppHandle) -> Result<PathBuf, String> {
+    eprintln!("[y2d] resolving private FFmpeg executable");
     latest_managed_tool(app, ToolName::Ffmpeg)
+        .or_else(|| fallback_tool(app, ToolName::Ffmpeg))
         .and_then(|tool| tool.path.parent().map(Path::to_path_buf))
+        .ok_or_else(|| "The bundled FFmpeg executable is missing. Reinstall y2d.".into())
 }
 
 async fn build_tool_status(
@@ -327,44 +316,17 @@ async fn build_tool_status(
 }
 
 fn fallback_tool(app: &AppHandle, tool: ToolName) -> Option<InstalledTool> {
-    match tool {
-        ToolName::YtDlp => {
-            if let Ok(resources) = app.path().resource_dir() {
-                let bundled = resources.join("binaries").join("yt-dlp.exe");
-                if bundled.is_file() {
-                    return Some(InstalledTool {
-                        path: bundled,
-                        version: None,
-                        source: "bundled",
-                        version_key: None,
-                    });
-                }
-            }
-            let development_copy = PathBuf::from(env!("CARGO_MANIFEST_DIR"))
-                .join("binaries")
-                .join("yt-dlp.exe");
-            if development_copy.is_file() {
-                return Some(InstalledTool {
-                    path: development_copy,
-                    version: None,
-                    source: "bundled",
-                    version_key: None,
-                });
-            }
-            Some(InstalledTool {
-                path: PathBuf::from(tool.executable_name()),
-                version: None,
-                source: "system",
-                version_key: None,
-            })
-        }
-        ToolName::Ffmpeg => Some(InstalledTool {
-            path: PathBuf::from(tool.executable_name()),
-            version: None,
-            source: "system",
-            version_key: None,
-        }),
+    eprintln!("[y2d] locating bundled {}", tool.key());
+    let mut roots = Vec::new();
+    if let Ok(resources) = app.path().resource_dir() {
+        roots.push(resources.join("binaries"));
     }
+    if cfg!(debug_assertions) {
+        roots.push(PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("binaries"));
+    }
+    roots.into_iter().map(|root| root.join(tool.executable_name()))
+        .find(|path| path.is_file())
+        .map(|path| InstalledTool { path, version: None, source: "bundled", version_key: None })
 }
 
 fn latest_managed_tool(app: &AppHandle, tool: ToolName) -> Option<InstalledTool> {
@@ -642,7 +604,11 @@ async fn read_version(path: &Path, tool: ToolName) -> Option<String> {
         ToolName::YtDlp => "--version",
         ToolName::Ffmpeg => "-version",
     };
-    let output = Command::new(path)
+    eprintln!("[y2d] probing {} version without a console", tool.key());
+    let mut command = Command::new(path);
+    #[cfg(windows)]
+    command.creation_flags(0x08000000); // CREATE_NO_WINDOW
+    let output = command
         .arg(argument)
         .stdin(Stdio::null())
         .stdout(Stdio::piped())

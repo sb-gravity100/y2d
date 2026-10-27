@@ -151,15 +151,10 @@ pub async fn start_download(
         }
     }
 
-    if let Some(ffmpeg_dir) = crate::tools::managed_ffmpeg_dir(&app) {
-        let mut path_entries = vec![ffmpeg_dir];
-        if let Some(existing_path) = std::env::var_os("PATH") {
-            path_entries.extend(std::env::split_paths(&existing_path));
-        }
-        let path = std::env::join_paths(path_entries)
-            .map_err(|error| format!("Could not prepare the managed FFmpeg path: {error}"))?;
-        command.env("PATH", path);
-    }
+    let ffmpeg_dir = crate::tools::resolve_ffmpeg_dir(&app)?;
+    command.arg("--ffmpeg-location").arg(&ffmpeg_dir);
+    #[cfg(windows)]
+    command.creation_flags(0x08000000); // CREATE_NO_WINDOW, including tool subprocesses
 
     command
         .arg("--")
