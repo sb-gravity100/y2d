@@ -1,5 +1,9 @@
 # Commit Log
 
+### `33667f4` · 2026-10-27 · fix: calculate installer hashes across PowerShell versions
+- `scripts/build-setup.ps1`
+- `scripts/prepare-tools.ps1`
+
 ### `d56fef1` · 2026-10-27 · docs: describe 0.1.1 desktop distribution
 - `AGENTS.md`
 - `PLAN.md`
