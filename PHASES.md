@@ -47,3 +47,11 @@
 - [ ] Add signed app updates and recovery guidance.
 - [ ] Finalize privacy, supported-site limitations, third-party notices, and troubleshooting documentation.
 - **Done when:** a clean Windows install can update without losing user settings or history.
+
+## Desktop distribution — 0.1.1
+
+- [ ] Add manual application update checking with current/latest version and release link.
+- [ ] Bundle FFmpeg/ffprobe and yt-dlp; remove system-tool dependency and suppress console windows.
+- [ ] Build the compact matching custom setup with destination selection, progress, errors and launch; retain Windows uninstall support.
+- [ ] Keep a small CUTV repository promotion.
+- [ ] Validate frontend, Rust, production bundle and custom installer build.

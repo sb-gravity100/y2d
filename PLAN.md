@@ -24,3 +24,11 @@ Use a fixed 1120Ã—790 borderless dark window with rounded corners. The top strip
 ## Current limitations
 
 Queue/history are currently in memory. Advanced yt-dlp workflows, browser-extension handoff, installer signing, and auto-updates remain later milestones. FFmpeg download size is approximately 170 MiB; show the exact release asset size before install.
+
+## Release 0.1.1 — Desktop distribution
+
+- Add an explicit Settings app-update check against `sb-gravity100/y2d` latest stable GitHub release. Compare SemVer and open the pinned release page; do not silently install unsigned app updates.
+- Ship FFmpeg and ffprobe alongside yt-dlp; resolve bundled or app-managed tools without requiring system PATH. Hide Windows child processes during downloads and version probes.
+- Deliver a standalone custom setup executable: a compact 560×440 rounded dark Tauri window matching the app (Cascadia Code, #0d1216 base, #141b20 surfaces, #84d5bd actions, #e3b17b mark). Left-align installation details with destination selection, busy state, errors, completion and launch. Embed a per-user NSIS payload and run it silently for reliable Windows registration, shortcuts and uninstall support.
+- Keep the existing compact CUTV companion promotion and point it to the requested repository.
+- Build the custom setup through a reproducible script; record bundled tool digests/provenance and include third-party licensing material.
