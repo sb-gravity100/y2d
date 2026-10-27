@@ -1,5 +1,9 @@
 # Commit Log
 
+### `0ee2bf9` · 2026-10-27 · docs: validate corrected external link build
+- `PHASES.md`
+- `src-setup/Cargo.lock`
+
 ### `aa13569` · 2026-10-27 · fix: allow companion and update release links
 - `src-tauri/capabilities/default.json`
 - `src/App.svelte`
